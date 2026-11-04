@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Pessoas</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+    <div class="topo">
+        <h1>Sistema de Controle de Acesso</h1>
+        <nav>
+            <a href="/">Acesso</a>
+            <a href="/consultar.html">Consultar</a>
+            <a href="/cadastrar.html">Cadastrar</a>
+            <a href="/atualizar.html">Atualizar</a>
+            <a href="/excluir.html">Excluir</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="card">
+        <h2>Consultar Pessoas</h2>
+
+        <div class="info">
+            Nesta página será implementada a consulta dos registros cadastrados no banco.
+        </div>
+
+        <div class="grid">
+            <div class="campo">
+                <label for="busca">Pesquisar:</label>
+                <input
+                    type="text"
+                    id="busca"
+                    placeholder="ID, nome ou e-mail">
+            </div>
+
+            <div class="campo">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo">
+                    <option value="">Todos</option>
+                    <option value="ALUNO">Aluno</option>
+                    <option value="PROFESSOR">Professor</option>
+                    <option value="FUNCIONARIO">Funcionário</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="acoes">
+            <button class="btn-primary">Pesquisar</button>
+            <button>Listar Todos</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Nascimento</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabelaPessoas">
+                <tr>
+                    <td colspan="6" style="text-align:center;">
+                        Os registros serão carregados aqui.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<!--
+    TRECHO QUE SERA IMPLEMENTADA EM AULA
+    DESENVOLVIMENTO WEB III - FATEC
+    PROF VINICIUS HELTAI
+-->
+
+</body>
+</html>

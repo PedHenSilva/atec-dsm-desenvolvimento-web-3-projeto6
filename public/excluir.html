@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda - Excluir</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="topo">
+            <h1>Agenda Pessoal de Contatos</h1>
+            <nav>
+                <a href="index.html">Ver Contatos</a>
+                <a href="cadastrar.html">Novo Contato</a>
+                <a href="atualizar.html">Modificar Cadastro</a>
+                <a href="excluir.html">Remover Registro</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="card">
+            <h2>Remover Contato do Sistema</h2>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="excluir-id" placeholder="ID único do contato...">
+                <button class="btn-danger" id="btn-excluir">Excluir Permanentemente</button>
+            </div>
+            <div id="msg" class="mensagem" style="display:none; margin-top: 15px;"></div>
+        </div>
+    </main>
+    <script type="module">
+        import { exibirMensagem } from './js/utils.js';
+        document.getElementById('btn-excluir').addEventListener('click', async () => {
+            const id = document.getElementById('excluir-id').value;
+            if(!id) return;
+            
+            if(confirm(`Confirmar remoção permanente do ID ${id}?`)) {
+                const res = await fetch(`/api/contatos?id=${id}`, { method: 'DELETE' });
+                if(res.ok) {
+                    exibirMensagem('msg', 'Contato excluído com sucesso!', '#16a34a');
+                    document.getElementById('excluir-id').value = '';
+                } else {
+                    exibirMensagem('msg', 'ID não encontrado no sistema.', '#dc2626');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

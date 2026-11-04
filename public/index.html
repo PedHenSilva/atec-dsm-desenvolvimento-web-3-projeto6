@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda de Contatos - Início</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="topo">
+            <h1>Agenda Pessoal de Contatos</h1>
+            <nav>
+                <a href="index.html">Ver Contatos</a>
+                <a href="cadastrar.html">Novo Contato</a>
+                <a href="atualizar.html">Modificar Cadastro</a>
+                <a href="excluir.html">Remover Registro</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="card">
+            <h2>Meus Contatos Salvos</h2>
+            <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                <input type="text" id="busca" placeholder="Filtrar por ID, Nome, E-mail ou Cidade...">
+                <button class="btn-success" id="btn-buscar">Pesquisar</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Nascimento</th>
+                        <th>Localidade</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-contatos"></tbody>
+            </table>
+        </div>
+    </main>
+    <script>
+        async function carregar(filtro = '') {
+            const res = await fetch(`/api/contatos?q=${encodeURIComponent(filtro)}`);
+            const lista = await res.json();
+            const tbody = document.getElementById('lista-contatos');
+            tbody.innerHTML = '';
+            
+            lista.forEach(c => {
+                const dataFormatada = c.data_nascimento.split('-').reverse().join('/');
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${c.id}</strong></td>
+                        <td>${c.nome}</td>
+                        <td>${c.email}</td>
+                        <td>${c.telefone}</td>
+                        <td>${dataFormatada}</td>
+                        <td>${c.cidade} - ${c.estado}</td>
+                    </tr>
+                `;
+            });
+        }
+        document.getElementById('btn-buscar').addEventListener('click', () => {
+            carregar(document.getElementById('busca').value);
+        });
+        carregar();
+    </script>
+</body>
+</html>
